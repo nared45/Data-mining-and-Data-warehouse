@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Prediction</title>
+</head>
+<body>
+    <h1>Loan Prediction</h1>
+    <form method="POST" action="/predict_loan">
+        <p>Gender:</p>
+        <select name="Gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <p>Married:</p>
+        <select name="Married">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        <p>Dependents:</p>
+        <select name="Dependents">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3+">3+</option>
+        </select>
+        <p>Education:</p>
+        <select name="Education">
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+        </select>
+        <p>Self Employed:</p>
+        <select name="Self_Employed">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+        <p>Applicant Income:</p>
+        <input type="text" name="ApplicantIncome">
+        <p>Coapplicant Income:</p>
+        <input type="text" name="CoapplicantIncome">
+        <p>Loan Amount:</p>
+        <input type="text" name="LoanAmount">
+        <p>Loan Amount Term:</p>
+        <input type="text" name="Loan_Amount_Term">
+        <p>Credit History:</p>
+        <select name="Credit_History">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+        <p>Property Area:</p>
+        <select name="Property_Area">
+            <option value="Rural">Rural</option>
+            <option value="Semiurban">Semiurban</option>
+            <option value="Urban">Urban</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

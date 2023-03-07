@@ -1,0 +1,126 @@
+from flask import Flask, render_template, request
+import joblib
+import sqlite3
+import pandas as pd
+
+app = Flask(__name__)
+
+# Connect to SQLite database
+conn = sqlite3.connect('loans.db')
+c = conn.cursor()
+
+# Define the get_input() function to retrieve user input and check for existing customer
+def get_input():
+    # Retrieve user input from HTML form
+    inputs = pd.DataFrame({
+        'Gender': [request.form['Gender']],
+        'Married': [request.form['Married']],
+        'Dependents': [request.form['Dependents']],
+        'Education': [request.form['Education']],
+        'Self_Employed': [request.form['Self_Employed']],
+        'ApplicantIncome': [int(request.form['ApplicantIncome'])],
+        'CoapplicantIncome': [int(request.form['CoapplicantIncome'])],
+        'LoanAmount': [int(request.form['LoanAmount'])],
+        'Loan_Amount_Term': [int(request.form['Loan_Amount_Term'])],
+        'Credit_History': [int(request.form['Credit_History'])],
+        'Property_Area': [request.form['Property_Area']]
+    })
+    # Check if the customer already exists in the database
+    c.execute('''SELECT * FROM loans
+                 WHERE Gender = ? AND Married = ? AND Dependents = ?
+                 AND Education = ? AND Self_Employed = ? AND ApplicantIncome = ?
+                 AND CoapplicantIncome = ? AND LoanAmount = ? AND Loan_Amount_Term = ?
+                 AND Credit_History = ? AND Property_Area = ?''',
+              (inputs['Gender'].values[0], inputs['Married'].values[0],
+               inputs['Dependents'].values[0], inputs['Education'].values[0],
+               inputs['Self_Employed'].values[0], inputs['ApplicantIncome'].values[0],
+               inputs['CoapplicantIncome'].values[0], inputs['LoanAmount'].values[0],
+               inputs['Loan_Amount_Term'].values[0], inputs['Credit_History'].values[0],
+               inputs['Property_Area'].values[0]))
+    existing_customer = c.fetchone()
+    # If the customer already exists, return the existing customer data
+    if existing_customer:
+        inputs = pd.DataFrame({
+            'Gender': [existing_customer[1]],
+            'Married': [existing_customer[2]],
+            'Dependents': [existing_customer[3]],
+            'Education': [existing_customer[4]],
+            'Self_Employed': [existing_customer[5]],
+            'ApplicantIncome': [existing_customer[6]],
+            'CoapplicantIncome': [existing_customer[7]],
+            'LoanAmount': [existing_customer[8]],
+            'Loan_Amount_Term': [existing_customer[9]],
+            'Credit_History': [existing_customer[10]],
+            'Property_Area': [existing_customer[11]]
+        })
+    return inputs
+
+# Define the loan approval process
+def predict_loan_approval(inputs):
+    # Load the trained decision tree model
+    clf = joblib.load('loan_prediction.joblib')
+    # Make loan approval decision
+    y_pred = clf.predict(inputs)
+    reasons = []
+    if y_pred == 1:
+        status = 'Y'
+    else:
+        if inputs['Credit_History'].values[0] == 0:
+            reasons.append('Credit history is bad')
+        if inputs['LoanAmount'].values[0] > 300:
+            reasons.append('Loan amount is too high')
+        if inputs['Education'].values[0] == 'Not Graduate':
+            reasons.append('Education level is not sufficient')
+        if inputs['Property_Area'].values[0] == 'Semiurban':
+            reasons.append('Property area is not suitable')
+        status = 'N'
+    # Check if the customer already exists in the database
+    c.execute('''SELECT * FROM loans
+                 WHERE Gender = ? AND Married = ? AND Dependents = ?
+                 AND Education = ? AND Self_Employed = ? AND ApplicantIncome = ?
+                 AND CoapplicantIncome = ? AND LoanAmount = ? AND Loan_Amount_Term = ?
+                 AND Credit_History = ? AND Property_Area = ?''',
+              (inputs['Gender'].values[0], inputs['Married'].values[0],
+               inputs['Dependents'].values[0], inputs['Education'].values[0],
+               inputs['Self_Employed'].values[0], inputs['ApplicantIncome'].values[0],
+               inputs['CoapplicantIncome'].values[0], inputs['LoanAmount'].values[0],
+               inputs['Loan_Amount_Term'].values[0], inputs['Credit_History'].values[0],
+               inputs['Property_Area'].values[0]))
+    existing_customer = c.fetchone()
+    # If the customer already exists, update the loan status
+    if existing_customer:
+        c.execute('''UPDATE loans SET Loan_Status = ? WHERE Loan_ID = ?''',
+                  (status, existing_customer[0]))
+        conn.commit()
+    # If the customer does not exist, insert a new row with the loan data and status
+    else:
+        c.execute('''INSERT INTO loans (Gender, Married, Dependents, Education, Self_Employed,
+                                         ApplicantIncome, CoapplicantIncome, LoanAmount,
+                                         Loan_Amount_Term, Credit_History, Property_Area,
+                                         Loan_Status)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                  (inputs['Gender'].values[0], inputs['Married'].values[0],
+                   inputs['Dependents'].values[0], inputs['Education'].values[0],
+                   inputs['Self_Employed'].values[0], inputs['ApplicantIncome'].values[0],
+                   inputs['CoapplicantIncome'].values[0], inputs['LoanAmount'].values[0],
+                   inputs['Loan_Amount_Term'].values[0], inputs['Credit_History'].values[0],
+                   inputs['Property_Area'].values[0], status))
+        conn.commit()
+    return y_pred, reasons
+
+# Define the Flask routes for the web application
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Retrieve user input from HTML form
+    inputs = get_input()
+    # Make loan approval decision and update database if necessary
+    y_pred, reasons = predict_loan_approval(inputs)
+    # Render the result template with the loan approval decision and reasons
+    return render_template('result.html', y_pred=y_pred[0], reasons=reasons)
+
+if __name__ == '__main__':
+    app.run(debug=True)

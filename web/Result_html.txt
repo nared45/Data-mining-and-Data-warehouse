@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Prediction Result</title>
+</head>
+<body>
+    <h1>Loan Prediction Result</h1>
+    <p>Loan ID: {{ loan[0] }}</p>
+    <p>Gender: {{ loan[1] }}</p>
+    <p>Married: {{ loan[2] }}</p>
+    <p>Dependents: {{ loan[3] }}</p>
+    <p>Education: {{ loan[4] }}</p>
+    <p>Self Employed: {{ loan[5] }}</p>
+    <p>Applicant Income: {{ loan[6] }}</p>
+    <p>Coapplicant Income: {{ loan[7] }}</p>
+    <p>Loan Amount: {{ loan[8] }}</p>
+    <p>Loan Amount Term: {{ loan[9] }}</p>
+    <p>Credit History: {{ loan[10] }}</p>
+    <p>Property Area: {{ loan[11] }}</p>
+    <p>Loan Approval Status: {{ loan[12] }}</p>
+    {% if loan[12] == 'Approved' %}
+        <p>Loan approved!</p>
+    {% else %}
+        <p>Loan denied!</p>
+    {% endif %}
+    {% if reasons %}
+        <p>Reasons:</p>
+        <ul>
+            {% for reason in reasons %}
+                <li>{{ reason }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
