@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 04:08 AM
+-- Generation Time: Mar 08, 2023 at 08:31 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -24,10 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `loan`
+-- Table structure for table `customer`
 --
 
-CREATE TABLE `loan` (
+CREATE TABLE `customer` (
+  `ID` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `age` int(11) NOT NULL,
+  `Phonenumber` varchar(10) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Married` int(10) NOT NULL,
+  `Dependents` varchar(3) NOT NULL,
+  `Education` varchar(20) NOT NULL,
+  `Self_Employed` varchar(10) NOT NULL,
+  `ApplicantIncome` int(11) NOT NULL,
+  `CoapplicantIncome` int(11) NOT NULL,
+  `LoanAmount` int(11) NOT NULL,
+  `Loan_Amount_Term` int(11) NOT NULL,
+  `Credit_History` int(11) NOT NULL,
+  `Property_Area` varchar(20) NOT NULL,
+  `Loan_Status` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee`
+--
+
+CREATE TABLE `employee` (
+  `username` varchar(11) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `information`
+--
+
+CREATE TABLE `information` (
   `Loan_ID` int(11) NOT NULL,
   `Gender` varchar(10) DEFAULT NULL,
   `Married` int(10) DEFAULT NULL,
@@ -44,10 +83,10 @@ CREATE TABLE `loan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `loan`
+-- Dumping data for table `information`
 --
 
-INSERT INTO `loan` (`Loan_ID`, `Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `ApplicantIncome`, `CoapplicantIncome`, `LoanAmount`, `Loan_Amount_Term`, `Credit_History`, `Property_Area`, `Loan_Status`) VALUES
+INSERT INTO `information` (`Loan_ID`, `Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `ApplicantIncome`, `CoapplicantIncome`, `LoanAmount`, `Loan_Amount_Term`, `Credit_History`, `Property_Area`, `Loan_Status`) VALUES
 (1, 'Male', 0, '0', 'Graduate', 'No', 9, 0, 5, 6, 1, 'Urban', 'Y'),
 (2, 'Male', 0, '0', 'Graduate', 'Yes', 8, 0, 4, 6, 1, 'Urban', 'Y'),
 (3, 'Male', 0, '0', 'Not Graduate', 'No', 8, 8, 5, 6, 1, 'Urban', 'Y'),
@@ -667,9 +706,21 @@ INSERT INTO `loan` (`Loan_ID`, `Gender`, `Married`, `Dependents`, `Education`, `
 --
 
 --
--- Indexes for table `loan`
+-- Indexes for table `customer`
 --
-ALTER TABLE `loan`
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `information`
+--
+ALTER TABLE `information`
   ADD PRIMARY KEY (`Loan_ID`);
 
 --
@@ -677,10 +728,10 @@ ALTER TABLE `loan`
 --
 
 --
--- AUTO_INCREMENT for table `loan`
+-- AUTO_INCREMENT for table `information`
 --
-ALTER TABLE `loan`
-  MODIFY `Loan_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
+ALTER TABLE `information`
+  MODIFY `Loan_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=614;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
