@@ -1,0 +1,39 @@
+/* Silder */
+.slider-1 {
+    background-image: url(../Pictures/Pic_1.jpg);
+    background-size: cover;
+    height: 500px;
+    /* You must set a specified height */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+}
+
+.slider-2 {
+    background-image: url(../Pictures/Pic_2.jpg);
+    background-size: cover;
+    height: 500px;
+    /* You must set a specified height */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+}
+
+.slider-3 {
+    background-image: url(../Pictures/Pic_3.jpg);
+    background-size: cover;
+    height: 500px;
+    /* You must set a specified height */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+}
