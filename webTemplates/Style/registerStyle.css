@@ -48,3 +48,26 @@ body {
     align-items: center;
     background-color: aquamarine;
 }
+
+.body {
+    background-color: greenyellow;
+    height: 800px;
+}
+
+.container-body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-body-inside {
+    height: 80%;
+    width: 50%;
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
