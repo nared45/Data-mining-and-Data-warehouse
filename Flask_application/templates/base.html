@@ -24,13 +24,13 @@
     <section class="nav">
         <div class="container-nav">
             <div class="container-nav-inside">
-                <a href="index.html" class="btn btn-dark">Logo</a>
-                <a href="index.html" class="btn btn-dark">Home</a>
+                <a href="{{url_for('indexPage')}}" class="btn btn-dark">Logo</a>
+                <a href="{{url_for('indexPage')}}" class="btn btn-dark">Home</a>
                 <a href="#" class="btn btn-dark">AboutUs</a>
             </div>
             <div class="container-nav-inside">
-                <a href="register.html" class="btn btn-dark">Register</a>
-                <a href="login.html" class="btn btn-dark">Login</a>
+                <a href="{{url_for('registerPage')}}" class="btn btn-dark">Register</a>
+                <a href="{{url_for('loginPage')}}" class="btn btn-dark">Login</a>
             </div>
         </div>
     </section>
