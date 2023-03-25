@@ -54,7 +54,13 @@ def loginFormPage(id, name):
         return render_template('Login/form.html', data_id = id, data_name = name)
     else :
         return redirect(url_for('indexPage'))
-
+    
+@app.route("/<string:id>/name/<string:name>/decide/name/<string:customerName>/loanAmount/<string:customerLoanAmount>/loanAmountTerm/<string:customerLoanAmountTerm>/")
+def loginDecideFormPage(id, name, customerName, customerLoanAmount, customerLoanAmountTerm):
+    if 'login' in session:
+        return render_template('Login/decide.html', data_id = id, data_name = name, customerName = customerName, customerLoanAmount = customerLoanAmount, customerLoanAmountTerm = customerLoanAmountTerm)
+    else :
+        return redirect(url_for('indexPage'))
 # =====================================================================
 
 # ============================= Action =============================
@@ -114,11 +120,20 @@ def loginAction():
                 flash("Please check your password", "warning")
                 return redirect(url_for('loginPage'))
 
-
+@app.route("/<string:id>/name/<string:loginName>/decide", methods=['POST'])
+def decideFormPage(id, loginName):
+    if 'login' in session:
+        customerName = request.form['customername']
+        customerLoanAmount = request.form['loanAmount']
+        customerLoanAmountTerm = request.form['loanAmountTerm']
+        return redirect(url_for('loginDecideFormPage', id = id , name = loginName, customerName = customerName, customerLoanAmount = customerLoanAmount, customerLoanAmountTerm = customerLoanAmountTerm))
+        # return render_template('Login/decide.html', data_id = id, data_name = name, customerName = customerName, customerLoanAmount = customerLoanAmount, customerLoanAmountTerm = customerLoanAmountTerm)
+    else :
+        return redirect(url_for('indexPage'))
 # ==================================================================
 
 
 if __name__ == "__main__":
-    app.run(debug=True
+    app.run(debug=True,
             # , use_reloader=False
             )
