@@ -39,22 +39,21 @@
                     <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                   </div>
 
-                  <form>
+                  <form action="{{url_for('loginAction')}}" method="POST">
                     <p>Please login to your account</p>
 
                     <div class="form-outline mb-4">
-                      <input type="email" id="form2Example11" class="form-control" placeholder="Email address " />
+                      <input type="email" id="form2Example11" class="form-control" placeholder="Email address" required name="email"/>
 
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="password" id="form2Example22" class="form-control" placeholder="Password" />
+                      <input type="password" id="form2Example22" class="form-control" placeholder="Password" required name="password"/>
 
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <button class="btn btn-dark btn-block fa-lg  mb-3" type="button">Log
-                        in</button>
+                      <button class="btn btn-dark btn-block fa-lg  mb-3" type="submit">Log in</button>
                       <br>
                       <div>
                         <a class="text-muted" href="#!">Forgot password?</a>
