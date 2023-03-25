@@ -37,64 +37,45 @@
               <div class="text-center">
                 <h4 class="mt-1 mb-5 pb-1">Decide</h4>
               </div>
-              <div style="font-size: 20px;">
-                <p>Name : </p>
-                <p>Loan_Amount : </p>
-                <p>Loan_Amount_Term : </p>
-                <p class="mb-5">Model_Predict: </p>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                    Approve
-                  </button>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Approve</h5>
-                        </div>
-                        <div class="modal-body text-center ">
-                          การอนุมัติเสร็จสิ้น
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                        </div>
-                      </div>
-                    </div>
+              <div style="font-size: 20px;">
+                {{loan_id}}
+                <p>Name : {{customerName}}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <p>Loan Amount : {{customerLoanAmount}}</p>
+                  </div>
+                  <div class="col-6">
+                    <p>Loan Amount Term : {{customerLoanAmountTerm}}</p>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="text-center pt-1 mb-5 pb-1">
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2">
+                <p>Model_Predict: {{status}}</p>
+                <ul class="mb-5">
+                  {% for r in reason %}
+                  <li>{{ r }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <form action="{{ url_for('decideApprove', id=data_id, name=data_name, loanid=loan_id, status='N') }}"
+                    method="POST">
+                    <input type="hidden" name="loan_id" value="{{ loan_id }}">
+                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2">
                       Denied
                     </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
-                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Denied</h5>
-                          </div>
-                          <div class="modal-body">
-                            ไม่อนุมัติ
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </form>
                 </div>
-
+                <div class="col-6">
+                  <form action="{{ url_for('decideApprove', id=data_id, name=data_name, loanid=loan_id, status='Y') }}"
+                    method="POST">
+                    <input type="hidden" name="loan_id" value="{{ loan_id }}">
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#exampleModal2">
+                      Approve
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -105,5 +86,3 @@
   {% endblock %}
 
 </body>
-
-</html>
