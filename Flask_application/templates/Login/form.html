@@ -18,8 +18,8 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
   {% endblock %}
-   <link rel="stylesheet" href="../../static/Style/registerStyle.css">
-   <link rel="stylesheet" href="../../static/Style/indexStyle.css">
+  <link rel="stylesheet" href="../../static/Style/registerStyle.css">
+  <link rel="stylesheet" href="../../static/Style/indexStyle.css">
 </head>
 
 <body>
@@ -31,19 +31,20 @@
           <div class="card rounded-3 text-black">
             <div class="card-body p-md-5 mx-md-4">
               <div class="text-center">
-                <h4 class="mt-1 mb-5 pb-1">From</h4>
+                <h4 class="mt-1 mb-5 pb-1">Form</h4>
               </div>
               <form action="#" method="post">
                 <p>Name</p>
                 <div class="label mb-3">
-                  <input type="text" id="" name="" class="form-control" placeholder="Name" />
+                  <input type="text" id="" name="name" class="form-control" placeholder="Name" required />
                 </div>
 
                 <p>Gender</p>
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option selected>Select Gender</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
+                <select class="form-select mb-3" aria-label="Default select example" name="gender" required>
+                  <!-- <option selected>Select Gender</option> -->
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
 
                 <div class="row">
@@ -52,32 +53,32 @@
                   </div>
                   <div class="col-10 mb-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1">
+                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio1"
+                        value="Yes" required>
                       <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio2"
+                        value="No">
                       <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                   </div>
                 </div>
 
                 <p>Dependents</p>
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option selected>Select Dependents</option>
-                  <option value="1">0</option>
-                  <option value="2">1</option>
-                  <option value="3">2</option>
-                  <option value="4">+3</option>
+                <select class="form-select mb-3" aria-label="Default select example" name="dependents" required>
+                  <option value="">Select Dependents</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="+3">+3</option>
                 </select>
 
                 <p>Education</p>
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option selected>Select Education</option>
-                  <option value="1">Graduate</option>
-                  <option value="2">Not Graduate</option>
+                <select class="form-select mb-3" aria-label="Default select example" name="education" required>
+                  <option value="">Select Education</option>
+                  <option value="Graduate">Graduate</option>
+                  <option value="Not Graduate">Not Graduate</option>
                 </select>
 
                 <div class="row">
@@ -86,54 +87,55 @@
                   </div>
                   <div class="col-10 mb-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1">
+                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio1"
+                        value="Yes" required>
                       <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio2"
+                        value="No">
                       <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                   </div>
                 </div>
                 <p>ApplicantIncome</p>
                 <div class="label mb-3">
-                  <input type="text" id="" name="" class="form-control" placeholder="ApplicantIncome" />
+                  <input type="number" id="" name="applicantIncome" class="form-control" placeholder="ApplicantIncome" required/>
                 </div>
                 <p>CoapplicantIncome</p>
                 <div class="label mb-3">
-                  <input type="text" id="" name="" class="form-control" placeholder="CoapplicantIncome" />
+                  <input type="number" id="" name="coapplicantIncome" class="form-control" placeholder="CoapplicantIncome" required/>
                 </div>
                 <p>Loan_Amount</p>
                 <div class="label mb-3">
-                  <input type="text" id="" name="" class="form-control" placeholder="Loan_Amount" />
+                  <input type="number" id="" name="loanAmount" class="form-control" placeholder="Loan_Amount" required/>
                 </div>
                 <p>Loan_Amount_Term</p>
                 <div class="label mb-3">
-                  <input type="text" id="" name="" class="form-control" placeholder="Loan_Amount_Term" />
+                  <input type="number" id="" name="loanAmountTerm" class="form-control" placeholder="Loan_Amount_Term" required/>
                 </div>
 
                 <p>Property_Area</p>
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option selected>Select Property_Area</option>
-                  <option value="1">Urban</option>
-                  <option value="2">'Rural</option>
-                  <option value="2">Semiurban</option>
+                <select class="form-select mb-3" aria-label="Default select example" name="propertyArea" required>
+                  <option value="">Select Property_Area</option>
+                  <option value="Urban">Urban</option>
+                  <option value="Rural">Rural</option>
+                  <option value="Semiurban">Semiurban</option>
                 </select>
                 <div class="row">
                   <div class="col">
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <a href="login.html" class="btn btn-dark">Submit</a>
+                      <!-- <a href="login.html" class="btn btn-dark">Submit</a> -->
+                      <button type="submit" class="btn btn-dark">Submit</button>
                       <br>
                     </div>
                   </div>
-                  <div class="col">
+                  <!-- <div class="col">
                     <div class="text-center pt-1 mb-5 pb-1">
                       <a href="login.html" class="btn btn-danger">Cancle</a>
                       <br>
                     </div>
-                  </div>
+                  </div> -->
 
                 </div>
               </form>
