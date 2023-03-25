@@ -34,18 +34,46 @@
                 <h4 class="mt-1 mb-5 pb-1">Form</h4>
               </div>
               <form action="{{url_for('decideFormPage', id = data_id, loginName = data_name)}}" method="post">
-                <p>Name</p>
-                <div class="label mb-3">
-                  <input type="text" id="" name="customername" class="form-control" placeholder="Name" required />
+                <div class="row">
+                  <div class="col-6">
+                    <p>Name</p>
+                    <div class="label mb-3">
+                      <input type="text" id="" name="customername" class="form-control" placeholder="Name" required />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <p>Surname</p>
+                    <div class="label mb-3">
+                      <input type="text" id="" name="customersurname" class="form-control" placeholder="Surname"
+                        required />
+                    </div>
+                  </div>
                 </div>
 
-                <p>Gender</p>
-                <select class="form-select mb-3" aria-label="Default select example" name="gender" required>
-                  <!-- <option selected>Select Gender</option> -->
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
+                <div class="row">
+                  <div class="col-2">
+                    <p>Age</p>
+                    <div class="label mb-3">
+                      <input type="number" id="" name="customerage" class="form-control" placeholder="Age" required />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <p>Gender</p>
+                    <select class="form-select mb-3" aria-label="Default select example" name="gender" required>
+                      <!-- <option selected>Select Gender</option> -->
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <p>Phone number</p>
+                    <div class="label mb-3">
+                      <input type="text" id="" name="customerphonenumber" class="form-control" placeholder="Phone number" required />
+                    </div>
+                  </div>
+                </div>
+
 
                 <div class="row">
                   <div class="col-2">
@@ -53,13 +81,12 @@
                   </div>
                   <div class="col-10 mb-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio1"
-                        value="Yes" required>
+                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio1" value="Yes"
+                        required>
                       <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio2"
-                        value="No">
+                      <input class="form-check-input" type="radio" name="Married" id="inlineRadio2" value="No">
                       <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                   </div>
@@ -87,32 +114,49 @@
                   </div>
                   <div class="col-10 mb-3">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio1"
-                        value="Yes" required>
+                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio1" value="Yes"
+                        required>
                       <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio2"
-                        value="No">
+                      <input class="form-check-input" type="radio" name="selfEmployed" id="inlineRadio2" value="No">
+                      <label class="form-check-label" for="inlineRadio2">No</label>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    Credit_History:
+                  </div>
+                  <div class="col-10 mb-3">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="creditHistory" id="inlineRadio1" value="1"
+                        required>
+                      <label class="form-check-label" for="inlineRadio1">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="creditHistory" id="inlineRadio2" value="0">
                       <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                   </div>
                 </div>
                 <p>ApplicantIncome</p>
                 <div class="label mb-3">
-                  <input type="number" id="" name="applicantIncome" class="form-control" placeholder="ApplicantIncome" required/>
+                  <input type="number" id="" name="applicantIncome" class="form-control" placeholder="ApplicantIncome"
+                    required />
                 </div>
                 <p>CoapplicantIncome</p>
                 <div class="label mb-3">
-                  <input type="number" id="" name="coapplicantIncome" class="form-control" placeholder="CoapplicantIncome" required/>
+                  <input type="number" id="" name="coapplicantIncome" class="form-control"
+                    placeholder="CoapplicantIncome" required />
                 </div>
                 <p>Loan_Amount</p>
                 <div class="label mb-3">
-                  <input type="number" id="" name="loanAmount" class="form-control" placeholder="Loan_Amount" required/>
+                  <input type="number" id="" name="loanAmount" class="form-control" placeholder="Loan amount in thousands $"
+                    required />
                 </div>
                 <p>Loan_Amount_Term</p>
                 <div class="label mb-3">
-                  <input type="number" id="" name="loanAmountTerm" class="form-control" placeholder="Loan_Amount_Term" required/>
+                  <input type="number" id="" name="loanAmountTerm" class="form-control" placeholder="Term of the loan in months "
+                    required />
                 </div>
 
                 <p>Property_Area</p>
