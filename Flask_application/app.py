@@ -21,7 +21,7 @@ app.secret_key = 'data_warehouse'
 # with open('C:/Cassava-Disease-Classification-Using-Line-BOT/Data-mining-and-Data-warehouse/Model_V2/decision_tree_model_feature_selection.pkl', 'rb') as f:
 #     clf = pickle.load(f)
 
-clf = joblib.load('C:/Flask_application/model/decision_tree_model_feature_selection.pkl')
+clf = joblib.load('C:/Github/Data-mining-and-Data-warehouse/Flask_application/model/decision_tree_model_feature_selection.pkl')
 
 def openConnection():
     connection = pymysql.connect(host='localhost',
