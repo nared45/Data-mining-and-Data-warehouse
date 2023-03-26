@@ -249,7 +249,7 @@ def decideFormPage(id, loginName):
 
         conn = openConnection()
         cur = conn.cursor()
-        sql = "INSERT INTO `customer` (`ID`, `name`, `surname`, `age`, `Phonenumber`, `Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `ApplicantIncome`, `CoapplicantIncome`, `LoanAmount`, `Loan_Amount_Term`, `Credit_History`, `Property_Area`, `Loan_Status`) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NULL)"
+        sql = "INSERT INTO `customer` (`name`, `surname`, `age`, `Phonenumber`, `Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `ApplicantIncome`, `CoapplicantIncome`, `LoanAmount`, `Loan_Amount_Term`, `Credit_History`, `Property_Area`, `Loan_Status`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NULL)"
         cur.execute(sql, (customerName, customerSurname, customerAge, customerPhone, customerGender, customerMarried, customerDependents, customerEducation,customerSelfEmployed,customerApplicantIncome,customerCoapplicantIncome,customerLoanAmount,customerLoanAmountTerm, customerCreditHistory, customerPropertyArea))
         # Get the ID of the last inserted record
         loan_id = cur.lastrowid
