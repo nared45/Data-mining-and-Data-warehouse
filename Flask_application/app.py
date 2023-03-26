@@ -21,13 +21,13 @@ app.secret_key = 'data_warehouse'
 # with open('C:/Cassava-Disease-Classification-Using-Line-BOT/Data-mining-and-Data-warehouse/Model_V2/decision_tree_model_feature_selection.pkl', 'rb') as f:
 #     clf = pickle.load(f)
 
-clf = joblib.load('C:/Cassava-Disease-Classification-Using-Line-BOT/Data-mining-and-Data-warehouse/Model_V2/decision_tree_model_feature_selection.pkl')
+clf = joblib.load('C:/Flask_application/model/decision_tree_model_feature_selection.pkl')
 
 def openConnection():
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='',
-                                 database='data_warehouse',  # Name of database
+                                 database='data_warehouseV2',  # Name of database
                                  charset='utf8',
                                  #  cursorclass=pymysql.cursors.DictCursor
                                  )
@@ -177,6 +177,7 @@ def predict_loan_approval(inputs):
     reasons = []
     met_conditions = []
     flags = {'Credit_History': False, 'ApplicantIncome': False, 'LoanAmount': False, 'CoapplicantIncome': False, 'Dependents': False}
+    
 
     for rule in rules:
         feature, threshold = rule
@@ -245,7 +246,12 @@ def decideFormPage(id, loginName):
         df = pd.DataFrame([inputs], columns=columns)
         # print(df)
         approval_status, reasons, met_conditions = predict_loan_approval(df)
+        
+        price_per_month = customerLoanAmount / float(customerLoanAmountTerm)
+        # print(price_per_month)
+        ratio = price_per_month / ((customerCoapplicantIncome+customerApplicantIncome)/1000)
         # print(type(reasons))
+        # print(ratio)
 
         conn = openConnection()
         cur = conn.cursor()
@@ -255,13 +261,17 @@ def decideFormPage(id, loginName):
         loan_id = cur.lastrowid
         conn.commit()
         conn.close()
-
-        if approval_status == 'Y':
-            status = "Loan application approved."
-            reasons = met_conditions
-        else:
+        
+        if ratio >= 0.4:
             status = "Loan application denied."
-            reasons = reasons
+            reasons = "The monthly installment price is 40'%' higher than the customer's income."
+        else:
+            if approval_status == 'Y':
+                status = "Loan application approved."
+                reasons = met_conditions
+            else:
+                status = "Loan application denied."
+                reasons = reasons
 
         return redirect(url_for('loginDecideFormPage', id = id , name = loginName, customerName = customerName, customerLoanAmount = customerLoanAmount
                                 , customerLoanAmountTerm = customerLoanAmountTerm, reason = reasons, status = status, loan_id = loan_id))
