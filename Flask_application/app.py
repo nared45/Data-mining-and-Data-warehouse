@@ -154,12 +154,8 @@ def extract_rules(tree, feature_names):
     return recurse(left, right, threshold, features, 0, [])
 
 def predict_loan_approval(inputs):
-    # new_data = inputs[['Credit_History', 'LoanAmount', 'ApplicantIncome', 'CoapplicantIncome', 'Dependents']]
-    # new_data.loc[:, 'Dependents'] = new_data['Dependents'].apply(lambda x : {'0' : 0, '1' : 1, '2' : 2, '3+' : 3}[x])
-    new_data = inputs
-    # print(new_data['Dependents'])
-    # new_data['Dependents'] = new_data['Dependents'].apply(lambda x : {'0' : 0, '1' : 1, '2' : 2, '3+' : 3}[x])
 
+    new_data = inputs
 
     y_pred = clf.predict(new_data.values)
     
@@ -168,17 +164,12 @@ def predict_loan_approval(inputs):
     # Extract the decision path and rules
     decision_path = clf.decision_path(new_data)
 
-    # print(f"decision_path: {decision_path}")
-
     rules = extract_rules(clf, new_data.columns)
-
-    # print(f"rule: {rules}")
 
     reasons = []
     met_conditions = []
     flags = {'Credit_History': False, 'ApplicantIncome': False, 'LoanAmount': False, 'CoapplicantIncome': False, 'Dependents': False}
     
-
     for rule in rules:
         feature, threshold = rule
         value = new_data.iloc[0][feature]
@@ -246,12 +237,6 @@ def decideFormPage(id, loginName):
         df = pd.DataFrame([inputs], columns=columns)
         # print(df)
         approval_status, reasons, met_conditions = predict_loan_approval(df)
-        
-        price_per_month = customerLoanAmount / float(customerLoanAmountTerm)
-        # print(price_per_month)
-        ratio = price_per_month / ((customerCoapplicantIncome+customerApplicantIncome)/1000)
-        # print(type(reasons))
-        # print(ratio)
 
         conn = openConnection()
         cur = conn.cursor()
@@ -261,6 +246,11 @@ def decideFormPage(id, loginName):
         loan_id = cur.lastrowid
         conn.commit()
         conn.close()
+        
+        
+        # Rule Applicant Income
+        price_per_month = customerLoanAmount / float(customerLoanAmountTerm)
+        ratio = price_per_month / ((customerCoapplicantIncome+customerApplicantIncome)/1000)
         
         if ratio >= 0.4:
             status = "Loan application denied."
